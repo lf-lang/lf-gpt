@@ -1,0 +1,30 @@
+title: Methods
+description: Methods in Lingua Franca.
+
+
+
+A method declaration has the forms:
+
+```lf
+  method <name>() {= ... =}
+```
+
+The `method` keyword can optionally be prefixed with the `const` qualifier, which indicates that the method has only read access to the reactor's state.
+
+Methods are particularly useful in reactors that need to perform certain operations on state variables and/or parameters that are shared between reactions or that are too complex to be implemented in a single reaction. Analogous to class methods, methods in LF can access all state variables and parameters, and can be invoked from all reaction bodies or from other methods. Methods may also recursively invoke themselves. Consider the following example:
+
+import Py_Methods from '../assets/code/py/src/Methods.lf';
+
+
+This reactor defines two methods `getFoo` and `add`.
+
+`getFoo` is qualified as a const method, which indicates that it has read-only
+access to the state variables. This is directly translated to a C++ const method
+in the code generation process.
+
+The `getFoo` method receives no arguments and returns an integer (`int`)
+indicating the current value of the `foo` state variable. The `add` method
+returns nothing <ShowOnly c cpp inline>(`void`)</ ShowOnly> and receives one integer argument, which it uses to increment `foo`. Both
+methods are visible in all reactions of the reactor. In this example, the
+reaction to startup calls both methods in order to read and modify its state.
+

@@ -1,0 +1,53 @@
+title: Parameters and State Variables
+description: Parameters and state variables in Lingua Franca.
+
+## Parameter Declaration
+
+A reactor class definition can parameterized as follows:
+
+
+
+```lf
+reactor <class-name>(<param-name> = <expr>, ... ) {
+    ...
+}
+```
+
+
+
+Depending on the target, the type may be a [generic type](../writing-reactors/generics.mdx), which means that the type is parameter determined at the time the reactor class is instantiated.
+
+Each parameter must have a _default value_, written `<param-name> = <expr>`. An expression may be a numeric constant, a string enclosed in quotation marks, a time value such as `10 msec`, a list of values, or target-language code enclosed in `{= ... =}`, for example. See [Expressions](../reference/expressions.mdx) for full details on what expressions are valid.
+
+For example, the `Double` reactor on the [previous page](../writing-reactors/inputs-and-outputs.mdx) can be replaced with a more general parameterized reactor `Scale` as follows:
+
+import Py_Scale from '../assets/code/py/src/Scale.lf';
+
+
+This reactor, given any input event `x` will produce an output `y` with value equal to the input scaled by the `factor` parameter. The default value of the `factor` parameter is 2, but this can be changed when the `Scale` reactor is instantiated.
+
+Notice how, within the body of a reaction, the code accesses the parameter value. This is different for each target language. <span class="lf-c">In the C target, a `self` struct is provided that contains the parameter values.</span>
+
+## State Declaration
+
+A reactor declares a state variable as follows:
+
+
+
+```lf
+  state <name> = <value>
+```
+
+
+The type can any of the same forms as for a parameter.
+
+The `<value>` is an initial value and, like parameter values, can be given as an [expression](../reference/expressions.mdx) or target language code with delimiters `{= ... =}`. The initial value can also be given as a parameter name. The value can be accessed and modified in a target-language-dependent way as illustrated by the following example:
+
+import Py_Count from '../assets/code/py/src/Count.lf';
+
+
+This reactor has an integer state variable named `count`, and each time its reaction is invoked, it outputs the value of that state variable and increments it. The reaction is triggered by a `timer`, discussed in the next section.
+
+## Reset State Variables
+
+
