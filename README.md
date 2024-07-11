@@ -1,8 +1,16 @@
 # lf-gpt
 Experimental work with AI-assisted code generation.
 
+This repository contains the following directories:
+
+1- `all_codebase`: LF files for all target languages, extracted from the Playground repository [https://github.com/lf-lang/playground-lingua-franca].
+
+2- `python_codebase`: LF files for Python target. It's a subdirectory of `all_codebase`.
+
+3- `lib`: LF file implementing an `Accelerometer` reactor for the `C` target. To be used by the `DropSensor` reactor for the `C` target. The `DropSensor` reactor code will be automatically generated in the following.
+
 ## Installation
-### 1. Python virtual environment
+### 1. Python virtual environment`
 You should have python3 installed.
 Create a virtual environment named `.env`:
 ```
