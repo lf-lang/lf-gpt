@@ -8,7 +8,7 @@
  * inter-process communication to update the GUI, providing an interactive, real-time game
  * experience.
  */
-target Python {
+ target Python {
   keepalive: true,
   files: [gui.py]
 }
